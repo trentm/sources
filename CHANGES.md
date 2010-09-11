@@ -2,7 +2,7 @@
 
 ## sources 1.0.1 (not yet released)
 
-(nothing yet)
+- Fix prog name in `sources -h` output.
 
 ## sources 1.0.0
 

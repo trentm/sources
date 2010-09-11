@@ -195,7 +195,7 @@ def main(argv=sys.argv):
 
     usage = "usage: %prog [OPTIONS...] [DIRS]"
     version = "%prog "+__version__
-    parser = optparse.OptionParser(prog="svn_add_ignore", usage=usage,
+    parser = optparse.OptionParser(prog="sources", usage=usage,
         version=version, description=__doc__,
         formatter=_NoReflowFormatter())
     parser.add_option("-q", "--quiet", dest="log_level",
