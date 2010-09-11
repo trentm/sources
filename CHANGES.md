@@ -1,5 +1,9 @@
 # sources Changelog
 
+## sources 1.0.3 (not yet released)
+
+(nothing yet)
+
 ## sources 1.0.2
 
 - Support glob wildcard chars in given DIRS, e.g.: `sources -l foo*`.
