@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 
-"""A tool for adding some convenience working with many source code
-control trees.
-
-A `.sources` file provides mappings for dir (relative or absolute) to
-scc repo.
+"""A tool for adding some convenience working with many source repos.
+First you write a `.sources` file to provide mappings for dir
+(relative or absolute) to scc repo. Then you using this script as
+follows. See <http://github.com/trentm/sources> for more.
 
 Usage:
     sources -l      # list sources under cwd
@@ -126,9 +125,9 @@ def list_sources(config, base_dir, verbose=False):
     """List sources under the given `base_dir` in the `config`."""
     for source in config.sources_under(abspath(base_dir)):
         if verbose:
-            print source.dir, "# ", ' '.join(source.info)
+            print(source.dir, "# ", ' '.join(source.info))
         else:
-            print source.dir
+            print(source.dir)
 
 def get_sources(config, base_dir):
     """Get sources under the given `base_dir` in the `config`."""
@@ -236,7 +235,7 @@ def main(argv=sys.argv):
         raise ValueError("unexpected action: %r" % opts.action)
 
 
-## {{{ http://code.activestate.com/recipes/577258/ (r4)
+## {{{ http://code.activestate.com/recipes/577258/ (r5)
 if __name__ == "__main__":
     try:
         retval = main(sys.argv)
@@ -263,7 +262,7 @@ if __name__ == "__main__":
             log.error(exc_info[0])
         if not skip_it:
             if log.isEnabledFor(logging.DEBUG):
-                print
+                print()
                 traceback.print_exception(*exc_info)
             sys.exit(1)
     else:
