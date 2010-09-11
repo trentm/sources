@@ -17,7 +17,6 @@ README = open(os.path.join(_top_dir, 'README.md')).read()
 setup(name='sources',
     version=sources.__version__,
     description="a command-line script for getting/updating source dirs from a config file giving SCC URLs",
-    long_description=README,
     classifiers=[c.strip() for c in """
         Development Status :: 5 - Production/Stable
         Environment :: Console
