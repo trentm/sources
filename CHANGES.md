@@ -1,6 +1,6 @@
 # sources Changelog
 
-## sources 1.0.3 (not yet released)
+## sources 1.0.3
 
 - Fix breakage from wildcard handling.
 
