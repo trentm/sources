@@ -71,8 +71,14 @@ class SourcesConfig(dict):
         return "<SourcesConfig '%s'>" % self.path
     def sources_under(self, base_dir):
         """Generate sources under the given base dir."""
-        for d in sorted(fnmatch.filter(self.keys(), base_dir)):
-            yield self[d]
+        if '*' in base_dir or '?' in base_dir or '[' in base_dir:
+            for d in sorted(fnmatch.filter(self.keys(), base_dir)):
+                yield self[d]
+        else:
+            base_dir_sep = base_dir + os.sep
+            for d, s in sorted(self.items()):
+                if d == base_dir or d.startswith(base_dir_sep):
+                    yield s
 
 class Source(object):
     def __init__(self, dir, info):
@@ -124,9 +130,9 @@ def list_sources(config, base_dir, verbose=False):
     """List sources under the given `base_dir` in the `config`."""
     for source in config.sources_under(abspath(base_dir)):
         if verbose:
-            print(source.dir, "# ", ' '.join(source.info))
+            print("# %s (%s)" % (source.nicedir, ' '.join(source.info)))
         else:
-            print(source.dir)
+            print(source.nicedir)
 
 def get_sources(config, base_dir):
     """Get sources under the given `base_dir` in the `config`."""
