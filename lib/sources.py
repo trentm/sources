@@ -65,7 +65,7 @@ class SourcesConfig(dict):
             if not line or line.startswith("#"):
                 continue
             bits = line.split()
-            d = join(self.dir, bits[0])
+            d = join(self.dir, expanduser(bits[0]))
             self[d] = Source(d, tuple(bits[1:]))
     def __repr__(self):
         return "<SourcesConfig '%s'>" % self.path

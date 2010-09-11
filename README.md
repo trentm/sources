@@ -13,12 +13,12 @@ update source repos. It works like this:
 
 2. You get/clone/checkout and update repos as follows:
 
-        sources -l      # list sources under cwd
-        sources         # get/update all sources under cwd
-        sources DIRS    # get/update sources under DIRS
-        sources -n ...  # dry-run
+        sources ~/personal  # get/update all my personal repos
+        sources -l          # list sources under cwd
+        sources             # get/update all sources under cwd
+        sources -n ...      # dry-run
 
-I find it useful to track repos I tend to work with without having
+I find it useful to track repos I tend to work with, without having
 to lookup the repo URLs everytime when jumping between machines.
 
 This project lives here: <http://github.com/trentm/sources>
