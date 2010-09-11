@@ -103,25 +103,24 @@ class Source(object):
         scc_type = self.info[0]
         if scc_type == "git":
             if exists(self.dir):
-                subprocess.check_call(["git", "pull"], cwd=self.dir)
+                _run(["git", "pull"], cwd=self.dir)
             else:
-                subprocess.check_call(["git", "clone", self.info[1], self.dir])
+                _run(["git", "clone", self.info[1], self.dir])
         elif scc_type == "hg":
             if exists(self.dir):
-                subprocess.check_call(["hg", "fetch"], cwd=self.dir)
+                _run(["hg", "fetch"], cwd=self.dir)
             else:
                 # hg can't handle creating parent dirs.
                 if not exists(dirname(self.dir)):
                     os.makedirs(dirname(self.dir))
-                subprocess.check_call(["hg", "clone", self.info[1], self.dir])
+                _run(["hg", "clone", self.info[1], self.dir])
         elif scc_type == "svn":
             if exists(self.dir):
-                subprocess.check_call(["svn", "update"], self.dir)
+                _run(["svn", "update"], self.dir)
             else:
-                subprocess.check_call(["svn", "checkout", self.info[1], self.dir])
+                _run(["svn", "checkout", self.info[1], self.dir])
         else:
             raise ValueError("do not know how to get '%s' repo" % scc_type)
-
 
 def list_sources(config, base_dir, verbose=False):
     """List sources under the given `base_dir` in the `config`."""
@@ -140,6 +139,10 @@ def get_sources(config, base_dir):
 
 
 #---- internal support stuff
+
+def _run(argv, cwd=None):
+    log.debug("run '%s'", ' '.join(argv))
+    return subprocess.check_call(argv, cwd=cwd)
 
 class _PerLevelFormatter(logging.Formatter):
     """Allow multiple format string -- depending on the log level.
