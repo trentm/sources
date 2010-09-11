@@ -2,7 +2,7 @@
 
 ## sources 1.0.2 (not yet released)
 
-(nothing yet)
+- Support glob wildcard chars in given DIRS, e.g.: `sources -l foo*`.
 
 ## sources 1.0.1
 

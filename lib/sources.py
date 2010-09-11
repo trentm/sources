@@ -21,6 +21,7 @@ from os.path import exists, join, dirname, basename, expanduser, abspath
 import codecs
 import optparse
 import subprocess
+import fnmatch
 import logging
 
 
@@ -70,10 +71,8 @@ class SourcesConfig(dict):
         return "<SourcesConfig '%s'>" % self.path
     def sources_under(self, base_dir):
         """Generate sources under the given base dir."""
-        base_dir_sep = base_dir + os.sep
-        for d, s in sorted(self.items()):
-            if d == base_dir or d.startswith(base_dir_sep):
-                yield s
+        for d in sorted(fnmatch.filter(self.keys(), base_dir)):
+            yield self[d]
 
 class Source(object):
     def __init__(self, dir, info):
