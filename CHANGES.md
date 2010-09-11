@@ -1,6 +1,6 @@
 # sources Changelog
 
-## sources 1.0.1 (not yet released)
+## sources 1.0.1
 
 - Fix prog name in `sources -h` output.
 
