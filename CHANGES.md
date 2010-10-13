@@ -2,7 +2,8 @@
 
 ## sources 1.0.4 (not yet released)
 
-(nothing yet)
+- [issue #3] Better error message if running a command fails when can't find
+  the exe (ENOENT).
 
 ## sources 1.0.3
 
