@@ -146,7 +146,15 @@ def get_sources(config, base_dir):
 
 def _run(argv, cwd=None):
     log.debug("run '%s'", ' '.join(argv))
-    return subprocess.check_call(argv, cwd=cwd)
+    try:
+        return subprocess.check_call(argv, cwd=cwd)
+    except OSError:
+        _, err, _ = sys.exc_info()
+        import errno
+        if err.errno == errno.ENOENT:
+            raise OSError(errno.ENOENT, "'%s' not found" % argv[0])
+        else:
+            raise
 
 class _PerLevelFormatter(logging.Formatter):
     """Allow multiple format string -- depending on the log level.
