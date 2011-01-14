@@ -1,6 +1,6 @@
 # sources Changelog
 
-## sources 1.0.4 (not yet released)
+## sources 1.0.4
 
 - [issue #5, git] Use "git submodule update --init --recursive" for recursive update
 - [issue #2, git] Try running "git submodule init && git submodule update" for
