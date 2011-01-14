@@ -197,7 +197,6 @@ class pypi_upload(Task):
                 % _setup_command_prefix(),
             self.dir, self.log.debug)
 
-        sys.path.insert(0, join(self.dir, "lib"))
         url = "http://pypi.python.org/pypi/sources/"
         import webbrowser
         webbrowser.open_new(url)
