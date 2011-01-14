@@ -109,10 +109,7 @@ class Source(object):
             if exists(self.dir):
                 _run(["git", "pull"], cwd=self.dir)
             else:
-                _run(["git", "clone", self.info[1], self.dir])
-                if exists(join(self.dir, '.gitmodules')):
-                    _run(["git", "submodule", "update", "--init", "--recursive"],
-                        cwd=self.dir)
+                _run(["git", "clone", "--recursive", self.info[1], self.dir])
         elif scc_type == "hg":
             if exists(self.dir):
                 _run(["hg", "fetch"], cwd=self.dir)
