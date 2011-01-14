@@ -2,6 +2,7 @@
 
 ## sources 1.0.4 (not yet released)
 
+- [issue #5, git] Use "git submodule update --init --recursive" for recursive update
 - [issue #2, git] Try running "git submodule init && git submodule update" for
   git submodules after an initial clone.
 - [issue #3] Better error message if running a command fails when can't find
