@@ -1,5 +1,9 @@
 # sources Changelog
 
+## sources 1.0.5 (not yet released)
+
+(nothing yet)
+
 ## sources 1.0.4
 
 - [issue #5, git] Use "git submodule update --init --recursive" for recursive update
