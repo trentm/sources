@@ -1,5 +1,9 @@
 # sources Changelog
 
+## sources 1.1.1 (not yet released)
+
+(nothing yet)
+
 ## sources 1.1.0
 
 - You can now add a git branch at the end of a git repo line and that branch
