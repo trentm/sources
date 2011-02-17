@@ -1,6 +1,6 @@
 # sources Changelog
 
-## sources 1.1.0 (not yet released)
+## sources 1.1.0
 
 - You can now add a git branch at the end of a git repo line and that branch
   will be checkout out, e.g.: `eol-develop git git@github.com:trentm/eol.git develop`.
