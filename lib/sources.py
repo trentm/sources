@@ -12,7 +12,7 @@ Usage:
     sources -n ...  # dry-run
 """
 
-__version_info__ = (1, 0, 5)
+__version_info__ = (1, 1, 0)
 __version__ = '.'.join(map(str, __version_info__))
 
 import sys
@@ -103,13 +103,22 @@ class Source(object):
                 return r
             else:
                 return a
-    def get(self):
+    def get(self, exclude_submodules=False):
         scc_type = self.info[0]
         if scc_type == "git":
             if exists(self.dir):
                 _run(["git", "pull"], cwd=self.dir)
+                if len(self.info) > 2:
+                    _run(["git", "checkout", self.info[2]], cwd=self.dir)
+                    _run(["git", "pull", "--rebase", "origin", self.info[2]], cwd=self.dir)
+            elif exclude_submodules:
+                _run(["git", "clone", self.info[1], self.dir])
+                if len(self.info) > 2:
+                    _run(["git", "checkout", self.info[2]], cwd=self.dir)
             else:
                 _run(["git", "clone", "--recursive", self.info[1], self.dir])
+                if len(self.info) > 2:
+                    _run(["git", "checkout", self.info[2]], cwd=self.dir)
         elif scc_type == "hg":
             if exists(self.dir):
                 _run(["hg", "fetch"], cwd=self.dir)
@@ -121,6 +130,8 @@ class Source(object):
         elif scc_type == "svn":
             if exists(self.dir):
                 _run(["svn", "update"], self.dir)
+            elif exclude_submodules:
+                _run(["svn", "checkout", "--ignore-externals", self.info[1], self.dir])
             else:
                 _run(["svn", "checkout", self.info[1], self.dir])
         else:
@@ -134,12 +145,14 @@ def list_sources(config, base_dir, verbose=False):
         else:
             print(source.nicedir)
 
-def get_sources(config, base_dir):
+def get_sources(config, base_dir, exclude_submodules=False):
     """Get sources under the given `base_dir` in the `config`."""
-    for source in config.sources_under(abspath(base_dir)):
+    for i, source in enumerate(config.sources_under(abspath(base_dir))):
+        if i != 0:
+            print
         log.info("# source %s (%s)", source.nicedir,
             ' '.join(source.info))
-        source.get()
+        source.get(exclude_submodules)
 
 
 #---- internal support stuff
@@ -225,8 +238,10 @@ def main(argv=sys.argv):
     parser.add_option("-d", "--dir",
         help="directory from which '.sources' config file "
             "is sought; default is cwd")
+    parser.add_option("-x", "--exclude-submodules", action="store_true",
+        help="do not pull submodules/checkout externals when cloning/getting")
     parser.set_defaults(log_level=logging.INFO, action="get",
-        dry_run=False, dir=None)
+        dry_run=False, dir=None, exclude_submodules=False)
     opts, args = parser.parse_args()
     log.setLevel(opts.log_level)
     
@@ -241,9 +256,9 @@ def main(argv=sys.argv):
     elif opts.action == "get":
         if args:
             for base_dir in args:
-                get_sources(config, base_dir)
+                get_sources(config, base_dir, opts.exclude_submodules)
         else:
-            get_sources(config, opts.dir or os.getcwd())
+            get_sources(config, opts.dir or os.getcwd(), opts.exclude_submodules)
     else:
         raise ValueError("unexpected action: %r" % opts.action)
 
