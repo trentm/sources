@@ -5,6 +5,8 @@ update source repos. It works like this:
    you can have one or more of them in any dir) that looks like this:
    
         ~/personal/eol  git git@github.com:trentm/eol.git
+        # You can specify a git branch to checkout:
+        ~/personal/eol-devel  git git@github.com:trentm/eol.git develop
         ~/personal/pics hg  https://trentm@bitbucket.org/trentm/pics/
         ~/work/komodo   svn https://svn.activestate.com/repos/activestate/komodo/trunk
 
@@ -17,6 +19,7 @@ update source repos. It works like this:
         sources -l          # list sources under cwd
         sources             # get/update all sources under cwd
         sources -n ...      # dry-run
+        sources -x ...      # exclude submodules (git) and externals (svn) from a clone
 
 I find it useful to track repos I tend to work with, without having
 to lookup the repo URLs everytime when jumping between machines.
